@@ -24,9 +24,12 @@ public class UsuarioController {
         return "redirect:/login";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+   @PostMapping("/login")
+        public String login(Usuario usuario) {
+        Usuario encontrado = usuarioService.buscarPorEmail(usuario.getEmail());
+         if (encontrado != null && encontrado.getSenha().equals(usuario.getSenha())) {
+        return "redirect:/home";
     }
-
+    return "redirect:/login";
+    }
 }
